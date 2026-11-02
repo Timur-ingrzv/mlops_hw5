@@ -1,0 +1,7 @@
+confluent-kafka==2.10.0
+pandas==2.3.3
+numpy==2.3.5
+scikit-learn==1.5.2
+lightgbm==4.6.0
+joblib==1.5.2
+prometheus_client==0.16.0

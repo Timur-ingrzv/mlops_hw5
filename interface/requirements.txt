@@ -1,0 +1,6 @@
+streamlit==1.64.0
+pandas==2.3.3
+numpy==2.3.5
+plotly==7.1.0
+psycopg2-binary==2.9.13
+confluent-kafka==2.10.0

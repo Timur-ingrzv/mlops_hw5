@@ -1,0 +1,14 @@
+apiVersion: 1
+
+datasources:
+  - name: PostgreSQL
+    type: postgres
+    url: database:5432
+    user: postgres
+    secureJsonData:
+      password: 123456
+    jsonData:
+      database: fraud_detections
+      sslmode: disable 
+      postgresVersion: 1500
+    editable: true 

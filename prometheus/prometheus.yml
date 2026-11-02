@@ -1,0 +1,19 @@
+global:
+  scrape_interval: 1s
+  evaluation_interval: 1s
+
+scrape_configs:
+  - job_name: 'node'
+    static_configs:
+      - targets: ['node-exporter:9100']
+    scrape_interval: 1s
+  
+  - job_name: 'fraud_detector'
+    static_configs:
+      - targets: ['fraud_detector:8000']
+    scrape_interval: 1s
+  
+  - job_name: 'scoring_writer'
+    static_configs:
+      - targets: ['writer:8001']
+    scrape_interval: 1s

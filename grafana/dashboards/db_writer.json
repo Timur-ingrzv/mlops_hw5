@@ -1,0 +1,2375 @@
+{
+  "apiVersion": "dashboard.grafana.app/v2",
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "adfnbz5fd",
+    "namespace": "default",
+    "uid": "d4a7f402-4f54-4a74-a229-8e129df0538b",
+    "resourceVersion": "1793644455130997",
+    "generation": 1,
+    "creationTimestamp": "2026-11-02T18:34:15Z",
+    "labels": {
+      "grafana.app/deprecatedInternalID": "632598319570944"
+    },
+    "annotations": {
+      "grafana.app/createdBy": "access-policy:service",
+      "grafana.app/managedBy": "classic-file-provisioning",
+      "grafana.app/managerAllowsEdits": "true",
+      "grafana.app/managerId": "Default",
+      "grafana.app/sourceChecksum": "1c13100376ea4f59c57066ae343be725",
+      "grafana.app/sourcePath": "/var/lib/grafana/dashboards/DB writer-1793643721236.json",
+      "grafana.app/sourceTimestamp": "1793643756000",
+      "grafana.app/updatedBy": "access-policy:service"
+    }
+  },
+  "spec": {
+    "annotations": [
+      {
+        "kind": "AnnotationQuery",
+        "spec": {
+          "query": {
+            "kind": "DataQuery",
+            "group": "grafana",
+            "version": "v0",
+            "datasource": {
+              "name": "-- Grafana --"
+            },
+            "spec": {}
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "builtIn": true
+        }
+      },
+      {
+        "kind": "AnnotationQuery",
+        "spec": {
+          "query": {
+            "kind": "DataQuery",
+            "group": "prometheus",
+            "version": "v0",
+            "datasource": {
+              "name": "PBFA97CFB590B2093"
+            },
+            "spec": {
+              "expr": "model_version_updates_total unless model_version_updates_total offset 30s",
+              "interval": "",
+              "refId": "Anno"
+            }
+          },
+          "enable": true,
+          "hide": false,
+          "iconColor": "red",
+          "name": "Model version",
+          "legacyOptions": {
+            "textFormat": "Модель перешла на {{ version }}",
+            "titleFormat": "Модель {{version}}"
+          }
+        }
+      }
+    ],
+    "cursorSync": "Off",
+    "editable": true,
+    "elements": {
+      "panel-1": {
+        "kind": "Panel",
+        "spec": {
+          "id": 1,
+          "title": "Доля мошеннических транзакций",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "PBFA97CFB590B2093"
+                      },
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "(\n  sum(rate(scoring_write_fraud[$__rate_interval])) \n  / \n  sum(rate(scoring_write_total[$__rate_interval]))\n) or vector(0)",
+                        "legendFormat": "fraud_rate",
+                        "range": true
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.3.0",
+            "spec": {
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "left",
+                    "axisWidth": 12,
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-2": {
+        "kind": "Panel",
+        "spec": {
+          "id": 2,
+          "title": "Распределение скоров по бакетам",
+          "description": "Кумулятивное распределение скоров за прошлыe 2 часа",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "PBFA97CFB590B2093"
+                      },
+                      "spec": {
+                        "editorMode": "builder",
+                        "expr": "sum by(le) (increase(scoring_write_fraud_score_bucket[2h]))",
+                        "format": "heatmap",
+                        "legendFormat": "__auto",
+                        "range": true
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "heatmap",
+            "version": "13.3.0",
+            "spec": {
+              "options": {
+                "calculate": false,
+                "cellGap": 1,
+                "color": {
+                  "exponent": 0.5,
+                  "fill": "dark-orange",
+                  "mode": "scheme",
+                  "reverse": false,
+                  "scale": "exponential",
+                  "scheme": "Oranges",
+                  "steps": 64
+                },
+                "exemplars": {
+                  "color": "rgba(255,0,255,0.7)"
+                },
+                "filterValues": {
+                  "le": 1e-9
+                },
+                "legend": {
+                  "placement": "bottom",
+                  "show": true
+                },
+                "rowsFrame": {
+                  "layout": "auto"
+                },
+                "tooltip": {
+                  "mode": "single",
+                  "yHistogram": false
+                },
+                "yAxis": {
+                  "axisPlacement": "left",
+                  "reverse": false
+                }
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "custom": {
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "scaleDistribution": {
+                      "type": "linear"
+                    }
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-3": {
+        "kind": "Panel",
+        "spec": {
+          "id": 3,
+          "title": "Среднее время выполнения транзакций",
+          "description": "Окно для нахождения среднего равно 5 минутам",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "PBFA97CFB590B2093"
+                      },
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "rate(transaction_processing_seconds_sum[$__rate_interval]) / rate(transaction_processing_seconds_count[$__rate_interval])",
+                        "legendFormat": "average_time_per_transaction",
+                        "range": true
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.3.0",
+            "spec": {
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-4": {
+        "kind": "Panel",
+        "spec": {
+          "id": 4,
+          "title": "Количество записанных результатов скоринга",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "PBFA97CFB590B2093"
+                      },
+                      "spec": {
+                        "editorMode": "builder",
+                        "expr": "scoring_write_total",
+                        "legendFormat": "__auto",
+                        "range": true
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.3.0",
+            "spec": {
+              "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "thresholds"
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-5": {
+        "kind": "Panel",
+        "spec": {
+          "id": 5,
+          "title": "Скорость записи результатов скоринга",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "PBFA97CFB590B2093"
+                      },
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "sum(rate(scoring_write_total[$__rate_interval]))",
+                        "legendFormat": "TPS",
+                        "range": true
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.3.0",
+            "spec": {
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-6": {
+        "kind": "Panel",
+        "spec": {
+          "id": 6,
+          "title": "Распределение скоров по штату и продавцу",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "PCC52D03280B7034C"
+                      },
+                      "spec": {
+                        "dataset": "fraud_detections",
+                        "editorMode": "code",
+                        "format": "table",
+                        "rawQuery": true,
+                        "rawSql": "SELECT\n    score AS value\nFROM scores\nWHERE \n    $__timeFilter(created_at)\n    AND us_state IN ($us_state) \n    AND merch IN ($merch)",
+                        "sql": {
+                          "columns": [
+                            {
+                              "parameters": [],
+                              "type": "function"
+                            }
+                          ],
+                          "groupBy": [
+                            {
+                              "property": {
+                                "type": "string"
+                              },
+                              "type": "groupBy"
+                            }
+                          ],
+                          "limit": 50
+                        }
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "histogram",
+            "version": "13.3.0",
+            "spec": {
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "fillOpacity": 80,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "lineWidth": 1,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    }
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-7": {
+        "kind": "Panel",
+        "spec": {
+          "id": 7,
+          "title": "TPS по штату и продавцу",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "PCC52D03280B7034C"
+                      },
+                      "spec": {
+                        "dataset": "fraud_detections",
+                        "editorMode": "code",
+                        "format": "table",
+                        "rawQuery": true,
+                        "rawSql": "SELECT\n    $__timeGroup(created_at, '1m') AS \"time\",\n    COUNT(*)::float / 60 AS \"TPS\"\nFROM scores\nWHERE \n    $__timeFilter(created_at)\n    AND us_state IN ($us_state) \n    AND merch IN ($merch)\nGROUP BY 1\nORDER BY 1",
+                        "sql": {
+                          "columns": [
+                            {
+                              "parameters": [],
+                              "type": "function"
+                            }
+                          ],
+                          "groupBy": [
+                            {
+                              "property": {
+                                "type": "string"
+                              },
+                              "type": "groupBy"
+                            }
+                          ],
+                          "limit": 50
+                        }
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.3.0",
+            "spec": {
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-8": {
+        "kind": "Panel",
+        "spec": {
+          "id": 8,
+          "title": "Доля фрода по категориям",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "PCC52D03280B7034C"
+                      },
+                      "spec": {
+                        "dataset": "fraud_detections",
+                        "editorMode": "code",
+                        "format": "table",
+                        "rawQuery": true,
+                        "rawSql": "WITH recent_transactions AS (\n    SELECT cat_id, fraud_flag\n    FROM scores\n    ORDER BY created_at DESC\n    LIMIT 1000\n)\nSELECT\n    cat_id AS \"Категория\",\n    AVG(fraud_flag) AS \"Доля фрода\"\nFROM recent_transactions\nGROUP BY cat_id\nORDER BY \"Доля фрода\" DESC;",
+                        "sql": {
+                          "columns": [
+                            {
+                              "parameters": [],
+                              "type": "function"
+                            }
+                          ],
+                          "groupBy": [
+                            {
+                              "property": {
+                                "type": "string"
+                              },
+                              "type": "groupBy"
+                            }
+                          ],
+                          "limit": 50
+                        }
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "barchart",
+            "version": "13.3.0",
+            "spec": {
+              "options": {
+                "barRadius": 0,
+                "barWidth": 0.9,
+                "fullHighlight": false,
+                "groupWidth": 0.8,
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "orientation": "auto",
+                "showValue": "auto",
+                "stacking": "none",
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                },
+                "xField": "time",
+                "xTickLabelRotation": 30,
+                "xTickLabelSpacing": 0
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "fixed",
+                    "fixedColor": "#ad46ff"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "fillOpacity": 100,
+                    "gradientMode": "hue",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "lineWidth": 1,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-9": {
+        "kind": "Panel",
+        "spec": {
+          "id": 9,
+          "title": "Связь скора модели и суммы транзакции",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "PCC52D03280B7034C"
+                      },
+                      "spec": {
+                        "dataset": "fraud_detections",
+                        "editorMode": "code",
+                        "format": "table",
+                        "rawQuery": true,
+                        "rawSql": "SELECT\n    amount AS \"Сумма транзакции\",\n    score AS \"Скор модели\",\n    CASE \n        WHEN fraud_flag = 1 THEN 'Fraud' \n        ELSE 'Normal' \n    END AS \"Статус\"\nFROM scores\nWHERE $__timeFilter(created_at)\nORDER BY created_at DESC\nLIMIT 5000;",
+                        "sql": {
+                          "columns": [
+                            {
+                              "parameters": [],
+                              "type": "function"
+                            }
+                          ],
+                          "groupBy": [
+                            {
+                              "property": {
+                                "type": "string"
+                              },
+                              "type": "groupBy"
+                            }
+                          ],
+                          "limit": 50
+                        }
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "xychart",
+            "version": "13.3.0",
+            "spec": {
+              "options": {
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "mapping": "auto",
+                "series": [
+                  {}
+                ],
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "fillOpacity": 50,
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "pointShape": "circle",
+                    "pointSize": {
+                      "fixed": 5
+                    },
+                    "pointStrokeWidth": 1,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "show": "points"
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      }
+    },
+    "layout": {
+      "kind": "RowsLayout",
+      "spec": {
+        "rows": [
+          {
+            "kind": "RowsLayoutRow",
+            "spec": {
+              "title": "Распределение скоров",
+              "collapse": false,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 0,
+                        "y": 0,
+                        "width": 12,
+                        "height": 9,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-1"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 12,
+                        "y": 0,
+                        "width": 12,
+                        "height": 9,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-2"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 0,
+                        "y": 9,
+                        "width": 12,
+                        "height": 8,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-6"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 12,
+                        "y": 9,
+                        "width": 12,
+                        "height": 8,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-7"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 0,
+                        "y": 17,
+                        "width": 12,
+                        "height": 8,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-8"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 12,
+                        "y": 17,
+                        "width": 12,
+                        "height": 8,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-9"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "kind": "RowsLayoutRow",
+            "spec": {
+              "title": "Производительность",
+              "collapse": false,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 0,
+                        "y": 0,
+                        "width": 12,
+                        "height": 10,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-3"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 12,
+                        "y": 0,
+                        "width": 12,
+                        "height": 10,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-5"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 0,
+                        "y": 10,
+                        "width": 8,
+                        "height": 10,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-4"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "links": [],
+    "liveNow": false,
+    "preload": false,
+    "tags": [],
+    "timeSettings": {
+      "timezone": "browser",
+      "from": "now-1h",
+      "to": "now",
+      "autoRefresh": "",
+      "autoRefreshIntervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "hideTimepicker": false,
+      "fiscalYearStartMonth": 0
+    },
+    "title": "DB writer",
+    "variables": [
+      {
+        "kind": "QueryVariable",
+        "spec": {
+          "name": "us_state",
+          "current": {
+            "text": [
+              "AK",
+              "AL",
+              "AR",
+              "AZ",
+              "CA",
+              "CO",
+              "DC",
+              "FL",
+              "GA",
+              "HI",
+              "IA",
+              "ID",
+              "IL",
+              "IN",
+              "KS",
+              "KY",
+              "LA",
+              "MA",
+              "MD",
+              "ME",
+              "MI",
+              "MN",
+              "MO",
+              "MS",
+              "MT",
+              "NC",
+              "ND",
+              "NE",
+              "NH",
+              "NJ",
+              "NM",
+              "NV",
+              "NY",
+              "OH",
+              "OK",
+              "OR",
+              "PA",
+              "SC",
+              "SD",
+              "TN",
+              "TX",
+              "UT",
+              "VA",
+              "VT",
+              "WA",
+              "WI",
+              "WV",
+              "WY"
+            ],
+            "value": [
+              "AK",
+              "AL",
+              "AR",
+              "AZ",
+              "CA",
+              "CO",
+              "DC",
+              "FL",
+              "GA",
+              "HI",
+              "IA",
+              "ID",
+              "IL",
+              "IN",
+              "KS",
+              "KY",
+              "LA",
+              "MA",
+              "MD",
+              "ME",
+              "MI",
+              "MN",
+              "MO",
+              "MS",
+              "MT",
+              "NC",
+              "ND",
+              "NE",
+              "NH",
+              "NJ",
+              "NM",
+              "NV",
+              "NY",
+              "OH",
+              "OK",
+              "OR",
+              "PA",
+              "SC",
+              "SD",
+              "TN",
+              "TX",
+              "UT",
+              "VA",
+              "VT",
+              "WA",
+              "WI",
+              "WV",
+              "WY"
+            ]
+          },
+          "hide": "dontHide",
+          "refresh": "onDashboardLoad",
+          "skipUrlSync": false,
+          "query": {
+            "kind": "DataQuery",
+            "group": "grafana-postgresql-datasource",
+            "version": "v0",
+            "datasource": {
+              "name": "PCC52D03280B7034C"
+            },
+            "spec": {
+              "dataset": "fraud_detections",
+              "editorMode": "code",
+              "format": "table",
+              "query": "SELECT DISTINCT us_state from scores ORDER BY us_state;\n",
+              "rawQuery": true,
+              "rawSql": "SELECT DISTINCT us_state from scores ORDER BY us_state;\n",
+              "refId": "SQLVariableQueryEditor-VariableQuery",
+              "sql": {
+                "columns": [
+                  {
+                    "parameters": [],
+                    "type": "function"
+                  }
+                ],
+                "groupBy": [
+                  {
+                    "property": {
+                      "type": "string"
+                    },
+                    "type": "groupBy"
+                  }
+                ],
+                "limit": 50
+              }
+            }
+          },
+          "regex": "",
+          "regexApplyTo": "value",
+          "sort": "disabled",
+          "definition": "SELECT DISTINCT us_state from scores ORDER BY us_state;\n",
+          "options": [],
+          "multi": true,
+          "includeAll": false,
+          "allowCustomValue": true
+        }
+      },
+      {
+        "kind": "QueryVariable",
+        "spec": {
+          "name": "merch",
+          "current": {
+            "text": [
+              "fraud_Abbott-Rogahn",
+              "fraud_Abbott-Steuber",
+              "fraud_Abernathy and Sons",
+              "fraud_Abshire PLC",
+              "fraud_Adams, Kovacek and Kuhlman",
+              "fraud_Altenwerth-Kilback",
+              "fraud_Armstrong, Walter and Gottlieb",
+              "fraud_Auer-Mosciski",
+              "fraud_Auer-West",
+              "fraud_Bahringer Group",
+              "fraud_Bahringer, Bergnaum and Quitzon",
+              "fraud_Bahringer, Osinski and Block",
+              "fraud_Bahringer, Schoen and Corkery",
+              "fraud_Bahringer-Larson",
+              "fraud_Bahringer-Streich",
+              "fraud_Balistreri-Nader",
+              "fraud_Barrows PLC",
+              "fraud_Bartoletti and Sons",
+              "fraud_Bartoletti-Wunsch",
+              "fraud_Barton Inc",
+              "fraud_Bashirian Group",
+              "fraud_Bauch-Blanda",
+              "fraud_Bauch-Raynor",
+              "fraud_Baumbach, Hodkiewicz and Walsh",
+              "fraud_Bechtelar-Rippin",
+              "fraud_Bednar PLC",
+              "fraud_Beer-Jast",
+              "fraud_Beier LLC",
+              "fraud_Beier-Hyatt",
+              "fraud_Berge LLC",
+              "fraud_Berge-Hills",
+              "fraud_Bernhard Inc",
+              "fraud_Bernhard, Grant and Langworth",
+              "fraud_Bernhard-Lesch",
+              "fraud_Bernier and Sons",
+              "fraud_Bernier, Volkman and Hoeger",
+              "fraud_Bins, Balistreri and Beatty",
+              "fraud_Bins-Howell",
+              "fraud_Bins-Tillman",
+              "fraud_Block-Hauck",
+              "fraud_Bode-Rempel",
+              "fraud_Bode-Schuster",
+              "fraud_Boehm, Predovic and Reinger",
+              "fraud_Bogisich Inc",
+              "fraud_Bogisich-Weimann",
+              "fraud_Botsford Ltd",
+              "fraud_Botsford PLC",
+              "fraud_Botsford and Sons",
+              "fraud_Boyer PLC",
+              "fraud_Boyer-Reichert",
+              "fraud_Bradtke PLC",
+              "fraud_Bradtke, Torp and Bahringer",
+              "fraud_Breitenberg-Hermiston",
+              "fraud_Brekke and Sons",
+              "fraud_Bruen-Yost",
+              "fraud_Buckridge PLC",
+              "fraud_Cartwright PLC",
+              "fraud_Casper, Hand and Zulauf",
+              "fraud_Cassin-Harvey",
+              "fraud_Champlin and Sons",
+              "fraud_Champlin-Casper",
+              "fraud_Christiansen, Goyette and Schamberger",
+              "fraud_Christiansen-Gusikowski",
+              "fraud_Collier LLC",
+              "fraud_Connelly PLC",
+              "fraud_Connelly, Reichert and Fritsch",
+              "fraud_Conroy Ltd",
+              "fraud_Conroy, Balistreri and Gorczany",
+              "fraud_Conroy-Cruickshank",
+              "fraud_Conroy-Emard",
+              "fraud_Cormier LLC",
+              "fraud_Corwin-Collins",
+              "fraud_Corwin-Gorczany",
+              "fraud_Cremin, Hamill and Reichel",
+              "fraud_Crist, Jakubowski and Littel",
+              "fraud_Crooks and Sons",
+              "fraud_Cruickshank-Mills",
+              "fraud_Cummerata-Hilpert",
+              "fraud_Cummerata-Jones",
+              "fraud_Cummings Group",
+              "fraud_Cummings LLC",
+              "fraud_Dach-Nader",
+              "fraud_Dare-Gibson",
+              "fraud_Dare-Marvin",
+              "fraud_Daugherty LLC",
+              "fraud_Daugherty, Pouros and Beahan",
+              "fraud_Daugherty-Thompson",
+              "fraud_Deckow-O'Conner",
+              "fraud_Denesik and Sons",
+              "fraud_Dibbert and Sons",
+              "fraud_Dibbert-Green",
+              "fraud_Dickinson Ltd",
+              "fraud_Dietrich-Fadel",
+              "fraud_Donnelly PLC",
+              "fraud_Dooley Inc",
+              "fraud_Doyle Ltd",
+              "fraud_DuBuque LLC",
+              "fraud_Durgan, Gislason and Spencer",
+              "fraud_Durgan-Auer",
+              "fraud_Ebert-Daugherty",
+              "fraud_Effertz LLC",
+              "fraud_Eichmann, Bogan and Rodriguez",
+              "fraud_Eichmann-Kilback",
+              "fraud_Eichmann-Russel",
+              "fraud_Emmerich-Rau",
+              "fraud_Erdman-Durgan",
+              "fraud_Erdman-Ebert",
+              "fraud_Erdman-Kertzmann",
+              "fraud_Erdman-Schaden",
+              "fraud_Ernser-Feest",
+              "fraud_Ernser-Lynch",
+              "fraud_Fadel, Mertz and Rippin",
+              "fraud_Fadel-Hilpert",
+              "fraud_Fahey Inc",
+              "fraud_Feil-Morar",
+              "fraud_Ferry, Reichel and DuBuque",
+              "fraud_Fisher Inc",
+              "fraud_Fisher-Schowalter",
+              "fraud_Flatley Group",
+              "fraud_Flatley-Durgan",
+              "fraud_Friesen Inc",
+              "fraud_Friesen-D'Amore",
+              "fraud_Friesen-Ortiz",
+              "fraud_Friesen-Stamm",
+              "fraud_Fritsch and Sons",
+              "fraud_Gaylord-Powlowski",
+              "fraud_Gibson-Deckow",
+              "fraud_Gislason Group",
+              "fraud_Gleason and Sons",
+              "fraud_Goldner, Kovacek and Abbott",
+              "fraud_Goldner-Lemke",
+              "fraud_Goodwin-Nitzsche",
+              "fraud_Gottlieb Group",
+              "fraud_Gottlieb, Considine and Schultz",
+              "fraud_Gottlieb-Hansen",
+              "fraud_Goyette Inc",
+              "fraud_Goyette, Howell and Collier",
+              "fraud_Goyette-Gerhold",
+              "fraud_Graham and Sons",
+              "fraud_Graham, Hegmann and Hammes",
+              "fraud_Greenholt, Jacobi and Gleason",
+              "fraud_Grimes LLC",
+              "fraud_Gulgowski LLC",
+              "fraud_Haag-Blanda",
+              "fraud_Hackett Group",
+              "fraud_Hackett-Lueilwitz",
+              "fraud_Haley, Jewess and Bechtelar",
+              "fraud_Halvorson Group",
+              "fraud_Harris Group",
+              "fraud_Harris Inc",
+              "fraud_Harris, Gusikowski and Heaney",
+              "fraud_Hartmann, Rowe and Hermann",
+              "fraud_Heaney-Marquardt",
+              "fraud_Heathcote LLC",
+              "fraud_Heidenreich PLC",
+              "fraud_Heller, Gutmann and Zieme",
+              "fraud_Herman, Treutel and Dickens",
+              "fraud_Hermann and Sons",
+              "fraud_Hermiston, Russel and Price",
+              "fraud_Hettinger, McCullough and Fay",
+              "fraud_Hills, Hegmann and Schaefer",
+              "fraud_Hills-Boyer",
+              "fraud_Hills-Olson",
+              "fraud_Hills-Witting",
+              "fraud_Hodkiewicz, Prohaska and Paucek",
+              "fraud_Hoppe, Harris and Bednar",
+              "fraud_Hoppe-Parisian",
+              "fraud_Hudson-Grady",
+              "fraud_Hudson-Ratke",
+              "fraud_Huel Ltd",
+              "fraud_Huel-Langworth",
+              "fraud_Huels-Hahn",
+              "fraud_Huels-Nolan",
+              "fraud_Hyatt, Russel and Gleichner",
+              "fraud_Jacobi Inc",
+              "fraud_Jakubowski Group",
+              "fraud_Jaskolski-Dibbert",
+              "fraud_Jast Ltd",
+              "fraud_Jast and Sons",
+              "fraud_Jenkins, Hauck and Friesen",
+              "fraud_Johnson, Runolfsdottir and Mayer",
+              "fraud_Johnston-Casper",
+              "fraud_Jones, Sawayn and Romaguera",
+              "fraud_Kassulke Inc",
+              "fraud_Kassulke PLC",
+              "fraud_Kautzer and Sons",
+              "fraud_Kemmer-Buckridge",
+              "fraud_Kemmer-Reinger",
+              "fraud_Kerluke, Considine and Macejkovic",
+              "fraud_Kertzmann LLC",
+              "fraud_Kiehn Inc",
+              "fraud_Kihn Inc",
+              "fraud_Kihn-Fritsch",
+              "fraud_Kihn-Schuster",
+              "fraud_Kilback and Sons",
+              "fraud_Kirlin and Sons",
+              "fraud_Klein Group",
+              "fraud_Kling, Howe and Schneider",
+              "fraud_Kling-Grant",
+              "fraud_Klocko LLC",
+              "fraud_Klocko, Runolfsdottir and Breitenberg",
+              "fraud_Koelpin and Sons",
+              "fraud_Koepp-Parker",
+              "fraud_Koepp-Witting",
+              "fraud_Konopelski, Schneider and Hartmann",
+              "fraud_Koss and Sons",
+              "fraud_Koss, Hansen and Lueilwitz",
+              "fraud_Koss, McLaughlin and Mayer",
+              "fraud_Kovacek, Dibbert and Ondricka",
+              "fraud_Kris-Kertzmann",
+              "fraud_Kris-Padberg",
+              "fraud_Kris-Weimann",
+              "fraud_Kub PLC",
+              "fraud_Kuhic LLC",
+              "fraud_Kuhic, Bins and Pfeffer",
+              "fraud_Kuhn LLC",
+              "fraud_Kulas Group",
+              "fraud_Kunde-Sanford",
+              "fraud_Kunze Inc",
+              "fraud_Kunze, Larkin and Mayert",
+              "fraud_Kuphal-Bartoletti",
+              "fraud_Kuphal-Predovic",
+              "fraud_Kuphal-Toy",
+              "fraud_Kutch LLC",
+              "fraud_Kutch and Sons",
+              "fraud_Kutch, Hermiston and Farrell",
+              "fraud_Kutch-Ferry",
+              "fraud_Kutch-Hegmann",
+              "fraud_Kutch-Wilderman",
+              "fraud_Kuvalis Ltd",
+              "fraud_Labadie LLC",
+              "fraud_Labadie, Treutel and Bode",
+              "fraud_Lakin, Ferry and Beatty",
+              "fraud_Langosh, Wintheiser and Hyatt",
+              "fraud_Langworth LLC",
+              "fraud_Langworth, Boehm and Gulgowski",
+              "fraud_Larkin Ltd",
+              "fraud_Larkin, Stracke and Greenfelder",
+              "fraud_Larson, Quitzon and Spencer",
+              "fraud_Leannon-Nikolaus",
+              "fraud_Leannon-Ward",
+              "fraud_Lebsack and Sons",
+              "fraud_Ledner, Hartmann and Feest",
+              "fraud_Ledner-Pfannerstill",
+              "fraud_Leffler-Goldner",
+              "fraud_Lehner, Mosciski and King",
+              "fraud_Lehner, Reichert and Mills",
+              "fraud_Lesch Ltd",
+              "fraud_Lind, Huel and McClure",
+              "fraud_Lockman, West and Runte",
+              "fraud_Lowe, Dietrich and Erdman",
+              "fraud_Lubowitz, Terry and Stracke",
+              "fraud_Lubowitz-Walter",
+              "fraud_Lynch Ltd",
+              "fraud_Lynch-Mohr",
+              "fraud_Lynch-Wisozk",
+              "fraud_Macejkovic-Lesch",
+              "fraud_Mante Group",
+              "fraud_Mante, Luettgen and Hackett",
+              "fraud_Marks Inc",
+              "fraud_Marvin-Lind",
+              "fraud_Mayert Group",
+              "fraud_McCullough Group",
+              "fraud_McCullough LLC",
+              "fraud_McCullough, Hudson and Schuster",
+              "fraud_McDermott-Weimann",
+              "fraud_McKenzie-Huels",
+              "fraud_Medhurst Inc",
+              "fraud_Medhurst PLC",
+              "fraud_Medhurst, Cartwright and Ebert",
+              "fraud_Metz, Russel and Metz",
+              "fraud_Miller-Harris",
+              "fraud_Moen, Reinger and Murphy",
+              "fraud_Mohr Inc",
+              "fraud_Mohr-Bayer",
+              "fraud_Monahan, Bogisich and Ledner",
+              "fraud_Monahan-Morar",
+              "fraud_Moore, Williamson and Emmerich",
+              "fraud_Morissette PLC",
+              "fraud_Morissette-Schaefer",
+              "fraud_Mosciski, Gislason and Mertz",
+              "fraud_Mraz-Herzog",
+              "fraud_Mueller, Gerhold and Mueller",
+              "fraud_Murray Ltd",
+              "fraud_Nader-Heller",
+              "fraud_Nader-Maggio",
+              "fraud_Nicolas, Hills and McGlynn",
+              "fraud_Nienow PLC",
+              "fraud_Nienow, Ankunding and Collier",
+              "fraud_Nienow, Barrows and Romaguera",
+              "fraud_Nitzsche, Kessler and Wolff",
+              "fraud_Nolan-Williamson",
+              "fraud_O'Connell, Botsford and Hand",
+              "fraud_O'Keefe-Wisoky",
+              "fraud_O'Reilly, Mohr and Purdy",
+              "fraud_Okuneva, Schneider and Rau",
+              "fraud_Olson, Becker and Koch",
+              "fraud_Osinski Inc",
+              "fraud_Pacocha-Bauch",
+              "fraud_Padberg-Rogahn",
+              "fraud_Padberg-Sauer",
+              "fraud_Padberg-Welch",
+              "fraud_Pagac LLC",
+              "fraud_Parisian and Sons",
+              "fraud_Parker, Nolan and Trantow",
+              "fraud_Parker-Kunde",
+              "fraud_Pfeffer and Sons",
+              "fraud_Pollich LLC",
+              "fraud_Pouros, Walker and Spencer",
+              "fraud_Pouros-Conroy",
+              "fraud_Pouros-Haag",
+              "fraud_Predovic Inc",
+              "fraud_Prosacco LLC",
+              "fraud_Prosacco, Kreiger and Kovacek",
+              "fraud_Quitzon, Green and Bashirian",
+              "fraud_Quitzon-Goyette",
+              "fraud_Ratke and Sons",
+              "fraud_Rau and Sons",
+              "fraud_Rau-Grant",
+              "fraud_Raynor, Feest and Miller",
+              "fraud_Raynor, Reinger and Hagenes",
+              "fraud_Reichel Inc",
+              "fraud_Reichel LLC",
+              "fraud_Reichert, Huels and Hoppe",
+              "fraud_Reichert, Shanahan and Hayes",
+              "fraud_Reichert-Weissnat",
+              "fraud_Reilly, Heaney and Cole",
+              "fraud_Reinger, Weissnat and Strosin",
+              "fraud_Rempel Inc",
+              "fraud_Renner Ltd",
+              "fraud_Reynolds-Schinner",
+              "fraud_Rippin-VonRueden",
+              "fraud_Robel, Cummerata and Prosacco",
+              "fraud_Roberts, Daniel and Macejkovic",
+              "fraud_Roberts, Ryan and Smith",
+              "fraud_Rodriguez Group",
+              "fraud_Rodriguez, Yost and Jenkins",
+              "fraud_Rohan, White and Aufderhar",
+              "fraud_Rolfson-Kunde",
+              "fraud_Romaguera Ltd",
+              "fraud_Romaguera, Cruickshank and Greenholt",
+              "fraud_Roob LLC",
+              "fraud_Roob, Conn and Tremblay",
+              "fraud_Roob-Okuneva",
+              "fraud_Ruecker Group",
+              "fraud_Ruecker-Mayert",
+              "fraud_Runolfsdottir, Mueller and Hand",
+              "fraud_Runte-Mohr",
+              "fraud_Rutherford-Mertz",
+              "fraud_Sawayn PLC",
+              "fraud_Schaefer Ltd",
+              "fraud_Schaefer, Fay and Hilll",
+              "fraud_Schaefer, Maggio and Daugherty",
+              "fraud_Schaefer, McGlynn and Bosco",
+              "fraud_Schamberger-O'Keefe",
+              "fraud_Schiller, Blanda and Johnson",
+              "fraud_Schimmel-Olson",
+              "fraud_Schmeler Inc",
+              "fraud_Schmeler, Bashirian and Price",
+              "fraud_Schmeler-Howe",
+              "fraud_Schmidt and Sons",
+              "fraud_Schmidt-Larkin",
+              "fraud_Schoen, Kuphal and Nitzsche",
+              "fraud_Schoen, Nienow and Bauch",
+              "fraud_Schoen-Quigley",
+              "fraud_Schroeder Group",
+              "fraud_Schroeder, Wolff and Hermiston",
+              "fraud_Schulist Ltd",
+              "fraud_Schultz, Simonis and Little",
+              "fraud_Schumm PLC",
+              "fraud_Schumm, McLaughlin and Carter",
+              "fraud_Schuppe, Nolan and Hoeger",
+              "fraud_Schuppe-Schuppe",
+              "fraud_Shanahan-Lehner",
+              "fraud_Shields-Wunsch",
+              "fraud_Skiles LLC",
+              "fraud_Spencer PLC",
+              "fraud_Sporer Inc",
+              "fraud_Stamm-Rodriguez",
+              "fraud_Stamm-Witting",
+              "fraud_Stanton, Jakubowski and Baumbach",
+              "fraud_Stark-Batz",
+              "fraud_Stiedemann Ltd",
+              "fraud_Stoltenberg-Beatty",
+              "fraud_Stracke-Lemke",
+              "fraud_Streich Ltd",
+              "fraud_Streich, Dietrich and Barton",
+              "fraud_Streich, Hansen and Veum",
+              "fraud_Strosin-Cruickshank",
+              "fraud_Swaniawski, Bahringer and Ledner",
+              "fraud_Swaniawski, Nitzsche and Welch",
+              "fraud_Swift PLC",
+              "fraud_Terry-Huel",
+              "fraud_Thiel PLC",
+              "fraud_Thiel-Thiel",
+              "fraud_Thompson-Gleason",
+              "fraud_Tillman, Dickinson and Labadie",
+              "fraud_Tillman, Fritsch and Schmitt",
+              "fraud_Torp-Labadie",
+              "fraud_Torp-Lemke",
+              "fraud_Towne LLC",
+              "fraud_Towne, Greenholt and Koepp",
+              "fraud_Treutel-King",
+              "fraud_Turcotte, Batz and Buckridge",
+              "fraud_Turcotte-Halvorson",
+              "fraud_Turner LLC",
+              "fraud_Turner, Ruecker and Parisian",
+              "fraud_Turner, Ziemann and Lehner",
+              "fraud_Ullrich Ltd",
+              "fraud_Upton PLC",
+              "fraud_Vandervort-Funk",
+              "fraud_Veum-Koelpin",
+              "fraud_Volkman-Predovic",
+              "fraud_VonRueden Group",
+              "fraud_Waelchi Inc",
+              "fraud_Waelchi-Wolf",
+              "fraud_Watsica LLC",
+              "fraud_Watsica, Haag and Considine",
+              "fraud_Weimann, Kuhic and Beahan",
+              "fraud_Weimann-Lockman",
+              "fraud_Welch, Rath and Koepp",
+              "fraud_Wilkinson LLC",
+              "fraud_Wilkinson Ltd",
+              "fraud_Wilkinson PLC",
+              "fraud_Williamson LLC",
+              "fraud_Willms, Kris and Bergnaum",
+              "fraud_Windler, Goodwin and Kovacek",
+              "fraud_Wintheiser, Dietrich and Schimmel",
+              "fraud_Witting, Beer and Ernser",
+              "fraud_Wiza LLC",
+              "fraud_Wiza, Schaden and Stark",
+              "fraud_Wolf Inc",
+              "fraud_Wuckert, Wintheiser and Friesen",
+              "fraud_Yost-Rogahn",
+              "fraud_Zboncak, Rowe and Murazik",
+              "fraud_Zemlak, Tillman and Cremin",
+              "fraud_Ziemann-Waters",
+              "fraud_Zieme, Bode and Dooley"
+            ],
+            "value": [
+              "fraud_Abbott-Rogahn",
+              "fraud_Abbott-Steuber",
+              "fraud_Abernathy and Sons",
+              "fraud_Abshire PLC",
+              "fraud_Adams, Kovacek and Kuhlman",
+              "fraud_Altenwerth-Kilback",
+              "fraud_Armstrong, Walter and Gottlieb",
+              "fraud_Auer-Mosciski",
+              "fraud_Auer-West",
+              "fraud_Bahringer Group",
+              "fraud_Bahringer, Bergnaum and Quitzon",
+              "fraud_Bahringer, Osinski and Block",
+              "fraud_Bahringer, Schoen and Corkery",
+              "fraud_Bahringer-Larson",
+              "fraud_Bahringer-Streich",
+              "fraud_Balistreri-Nader",
+              "fraud_Barrows PLC",
+              "fraud_Bartoletti and Sons",
+              "fraud_Bartoletti-Wunsch",
+              "fraud_Barton Inc",
+              "fraud_Bashirian Group",
+              "fraud_Bauch-Blanda",
+              "fraud_Bauch-Raynor",
+              "fraud_Baumbach, Hodkiewicz and Walsh",
+              "fraud_Bechtelar-Rippin",
+              "fraud_Bednar PLC",
+              "fraud_Beer-Jast",
+              "fraud_Beier LLC",
+              "fraud_Beier-Hyatt",
+              "fraud_Berge LLC",
+              "fraud_Berge-Hills",
+              "fraud_Bernhard Inc",
+              "fraud_Bernhard, Grant and Langworth",
+              "fraud_Bernhard-Lesch",
+              "fraud_Bernier and Sons",
+              "fraud_Bernier, Volkman and Hoeger",
+              "fraud_Bins, Balistreri and Beatty",
+              "fraud_Bins-Howell",
+              "fraud_Bins-Tillman",
+              "fraud_Block-Hauck",
+              "fraud_Bode-Rempel",
+              "fraud_Bode-Schuster",
+              "fraud_Boehm, Predovic and Reinger",
+              "fraud_Bogisich Inc",
+              "fraud_Bogisich-Weimann",
+              "fraud_Botsford Ltd",
+              "fraud_Botsford PLC",
+              "fraud_Botsford and Sons",
+              "fraud_Boyer PLC",
+              "fraud_Boyer-Reichert",
+              "fraud_Bradtke PLC",
+              "fraud_Bradtke, Torp and Bahringer",
+              "fraud_Breitenberg-Hermiston",
+              "fraud_Brekke and Sons",
+              "fraud_Bruen-Yost",
+              "fraud_Buckridge PLC",
+              "fraud_Cartwright PLC",
+              "fraud_Casper, Hand and Zulauf",
+              "fraud_Cassin-Harvey",
+              "fraud_Champlin and Sons",
+              "fraud_Champlin-Casper",
+              "fraud_Christiansen, Goyette and Schamberger",
+              "fraud_Christiansen-Gusikowski",
+              "fraud_Collier LLC",
+              "fraud_Connelly PLC",
+              "fraud_Connelly, Reichert and Fritsch",
+              "fraud_Conroy Ltd",
+              "fraud_Conroy, Balistreri and Gorczany",
+              "fraud_Conroy-Cruickshank",
+              "fraud_Conroy-Emard",
+              "fraud_Cormier LLC",
+              "fraud_Corwin-Collins",
+              "fraud_Corwin-Gorczany",
+              "fraud_Cremin, Hamill and Reichel",
+              "fraud_Crist, Jakubowski and Littel",
+              "fraud_Crooks and Sons",
+              "fraud_Cruickshank-Mills",
+              "fraud_Cummerata-Hilpert",
+              "fraud_Cummerata-Jones",
+              "fraud_Cummings Group",
+              "fraud_Cummings LLC",
+              "fraud_Dach-Nader",
+              "fraud_Dare-Gibson",
+              "fraud_Dare-Marvin",
+              "fraud_Daugherty LLC",
+              "fraud_Daugherty, Pouros and Beahan",
+              "fraud_Daugherty-Thompson",
+              "fraud_Deckow-O'Conner",
+              "fraud_Denesik and Sons",
+              "fraud_Dibbert and Sons",
+              "fraud_Dibbert-Green",
+              "fraud_Dickinson Ltd",
+              "fraud_Dietrich-Fadel",
+              "fraud_Donnelly PLC",
+              "fraud_Dooley Inc",
+              "fraud_Doyle Ltd",
+              "fraud_DuBuque LLC",
+              "fraud_Durgan, Gislason and Spencer",
+              "fraud_Durgan-Auer",
+              "fraud_Ebert-Daugherty",
+              "fraud_Effertz LLC",
+              "fraud_Eichmann, Bogan and Rodriguez",
+              "fraud_Eichmann-Kilback",
+              "fraud_Eichmann-Russel",
+              "fraud_Emmerich-Rau",
+              "fraud_Erdman-Durgan",
+              "fraud_Erdman-Ebert",
+              "fraud_Erdman-Kertzmann",
+              "fraud_Erdman-Schaden",
+              "fraud_Ernser-Feest",
+              "fraud_Ernser-Lynch",
+              "fraud_Fadel, Mertz and Rippin",
+              "fraud_Fadel-Hilpert",
+              "fraud_Fahey Inc",
+              "fraud_Feil-Morar",
+              "fraud_Ferry, Reichel and DuBuque",
+              "fraud_Fisher Inc",
+              "fraud_Fisher-Schowalter",
+              "fraud_Flatley Group",
+              "fraud_Flatley-Durgan",
+              "fraud_Friesen Inc",
+              "fraud_Friesen-D'Amore",
+              "fraud_Friesen-Ortiz",
+              "fraud_Friesen-Stamm",
+              "fraud_Fritsch and Sons",
+              "fraud_Gaylord-Powlowski",
+              "fraud_Gibson-Deckow",
+              "fraud_Gislason Group",
+              "fraud_Gleason and Sons",
+              "fraud_Goldner, Kovacek and Abbott",
+              "fraud_Goldner-Lemke",
+              "fraud_Goodwin-Nitzsche",
+              "fraud_Gottlieb Group",
+              "fraud_Gottlieb, Considine and Schultz",
+              "fraud_Gottlieb-Hansen",
+              "fraud_Goyette Inc",
+              "fraud_Goyette, Howell and Collier",
+              "fraud_Goyette-Gerhold",
+              "fraud_Graham and Sons",
+              "fraud_Graham, Hegmann and Hammes",
+              "fraud_Greenholt, Jacobi and Gleason",
+              "fraud_Grimes LLC",
+              "fraud_Gulgowski LLC",
+              "fraud_Haag-Blanda",
+              "fraud_Hackett Group",
+              "fraud_Hackett-Lueilwitz",
+              "fraud_Haley, Jewess and Bechtelar",
+              "fraud_Halvorson Group",
+              "fraud_Harris Group",
+              "fraud_Harris Inc",
+              "fraud_Harris, Gusikowski and Heaney",
+              "fraud_Hartmann, Rowe and Hermann",
+              "fraud_Heaney-Marquardt",
+              "fraud_Heathcote LLC",
+              "fraud_Heidenreich PLC",
+              "fraud_Heller, Gutmann and Zieme",
+              "fraud_Herman, Treutel and Dickens",
+              "fraud_Hermann and Sons",
+              "fraud_Hermiston, Russel and Price",
+              "fraud_Hettinger, McCullough and Fay",
+              "fraud_Hills, Hegmann and Schaefer",
+              "fraud_Hills-Boyer",
+              "fraud_Hills-Olson",
+              "fraud_Hills-Witting",
+              "fraud_Hodkiewicz, Prohaska and Paucek",
+              "fraud_Hoppe, Harris and Bednar",
+              "fraud_Hoppe-Parisian",
+              "fraud_Hudson-Grady",
+              "fraud_Hudson-Ratke",
+              "fraud_Huel Ltd",
+              "fraud_Huel-Langworth",
+              "fraud_Huels-Hahn",
+              "fraud_Huels-Nolan",
+              "fraud_Hyatt, Russel and Gleichner",
+              "fraud_Jacobi Inc",
+              "fraud_Jakubowski Group",
+              "fraud_Jaskolski-Dibbert",
+              "fraud_Jast Ltd",
+              "fraud_Jast and Sons",
+              "fraud_Jenkins, Hauck and Friesen",
+              "fraud_Johnson, Runolfsdottir and Mayer",
+              "fraud_Johnston-Casper",
+              "fraud_Jones, Sawayn and Romaguera",
+              "fraud_Kassulke Inc",
+              "fraud_Kassulke PLC",
+              "fraud_Kautzer and Sons",
+              "fraud_Kemmer-Buckridge",
+              "fraud_Kemmer-Reinger",
+              "fraud_Kerluke, Considine and Macejkovic",
+              "fraud_Kertzmann LLC",
+              "fraud_Kiehn Inc",
+              "fraud_Kihn Inc",
+              "fraud_Kihn-Fritsch",
+              "fraud_Kihn-Schuster",
+              "fraud_Kilback and Sons",
+              "fraud_Kirlin and Sons",
+              "fraud_Klein Group",
+              "fraud_Kling, Howe and Schneider",
+              "fraud_Kling-Grant",
+              "fraud_Klocko LLC",
+              "fraud_Klocko, Runolfsdottir and Breitenberg",
+              "fraud_Koelpin and Sons",
+              "fraud_Koepp-Parker",
+              "fraud_Koepp-Witting",
+              "fraud_Konopelski, Schneider and Hartmann",
+              "fraud_Koss and Sons",
+              "fraud_Koss, Hansen and Lueilwitz",
+              "fraud_Koss, McLaughlin and Mayer",
+              "fraud_Kovacek, Dibbert and Ondricka",
+              "fraud_Kris-Kertzmann",
+              "fraud_Kris-Padberg",
+              "fraud_Kris-Weimann",
+              "fraud_Kub PLC",
+              "fraud_Kuhic LLC",
+              "fraud_Kuhic, Bins and Pfeffer",
+              "fraud_Kuhn LLC",
+              "fraud_Kulas Group",
+              "fraud_Kunde-Sanford",
+              "fraud_Kunze Inc",
+              "fraud_Kunze, Larkin and Mayert",
+              "fraud_Kuphal-Bartoletti",
+              "fraud_Kuphal-Predovic",
+              "fraud_Kuphal-Toy",
+              "fraud_Kutch LLC",
+              "fraud_Kutch and Sons",
+              "fraud_Kutch, Hermiston and Farrell",
+              "fraud_Kutch-Ferry",
+              "fraud_Kutch-Hegmann",
+              "fraud_Kutch-Wilderman",
+              "fraud_Kuvalis Ltd",
+              "fraud_Labadie LLC",
+              "fraud_Labadie, Treutel and Bode",
+              "fraud_Lakin, Ferry and Beatty",
+              "fraud_Langosh, Wintheiser and Hyatt",
+              "fraud_Langworth LLC",
+              "fraud_Langworth, Boehm and Gulgowski",
+              "fraud_Larkin Ltd",
+              "fraud_Larkin, Stracke and Greenfelder",
+              "fraud_Larson, Quitzon and Spencer",
+              "fraud_Leannon-Nikolaus",
+              "fraud_Leannon-Ward",
+              "fraud_Lebsack and Sons",
+              "fraud_Ledner, Hartmann and Feest",
+              "fraud_Ledner-Pfannerstill",
+              "fraud_Leffler-Goldner",
+              "fraud_Lehner, Mosciski and King",
+              "fraud_Lehner, Reichert and Mills",
+              "fraud_Lesch Ltd",
+              "fraud_Lind, Huel and McClure",
+              "fraud_Lockman, West and Runte",
+              "fraud_Lowe, Dietrich and Erdman",
+              "fraud_Lubowitz, Terry and Stracke",
+              "fraud_Lubowitz-Walter",
+              "fraud_Lynch Ltd",
+              "fraud_Lynch-Mohr",
+              "fraud_Lynch-Wisozk",
+              "fraud_Macejkovic-Lesch",
+              "fraud_Mante Group",
+              "fraud_Mante, Luettgen and Hackett",
+              "fraud_Marks Inc",
+              "fraud_Marvin-Lind",
+              "fraud_Mayert Group",
+              "fraud_McCullough Group",
+              "fraud_McCullough LLC",
+              "fraud_McCullough, Hudson and Schuster",
+              "fraud_McDermott-Weimann",
+              "fraud_McKenzie-Huels",
+              "fraud_Medhurst Inc",
+              "fraud_Medhurst PLC",
+              "fraud_Medhurst, Cartwright and Ebert",
+              "fraud_Metz, Russel and Metz",
+              "fraud_Miller-Harris",
+              "fraud_Moen, Reinger and Murphy",
+              "fraud_Mohr Inc",
+              "fraud_Mohr-Bayer",
+              "fraud_Monahan, Bogisich and Ledner",
+              "fraud_Monahan-Morar",
+              "fraud_Moore, Williamson and Emmerich",
+              "fraud_Morissette PLC",
+              "fraud_Morissette-Schaefer",
+              "fraud_Mosciski, Gislason and Mertz",
+              "fraud_Mraz-Herzog",
+              "fraud_Mueller, Gerhold and Mueller",
+              "fraud_Murray Ltd",
+              "fraud_Nader-Heller",
+              "fraud_Nader-Maggio",
+              "fraud_Nicolas, Hills and McGlynn",
+              "fraud_Nienow PLC",
+              "fraud_Nienow, Ankunding and Collier",
+              "fraud_Nienow, Barrows and Romaguera",
+              "fraud_Nitzsche, Kessler and Wolff",
+              "fraud_Nolan-Williamson",
+              "fraud_O'Connell, Botsford and Hand",
+              "fraud_O'Keefe-Wisoky",
+              "fraud_O'Reilly, Mohr and Purdy",
+              "fraud_Okuneva, Schneider and Rau",
+              "fraud_Olson, Becker and Koch",
+              "fraud_Osinski Inc",
+              "fraud_Pacocha-Bauch",
+              "fraud_Padberg-Rogahn",
+              "fraud_Padberg-Sauer",
+              "fraud_Padberg-Welch",
+              "fraud_Pagac LLC",
+              "fraud_Parisian and Sons",
+              "fraud_Parker, Nolan and Trantow",
+              "fraud_Parker-Kunde",
+              "fraud_Pfeffer and Sons",
+              "fraud_Pollich LLC",
+              "fraud_Pouros, Walker and Spencer",
+              "fraud_Pouros-Conroy",
+              "fraud_Pouros-Haag",
+              "fraud_Predovic Inc",
+              "fraud_Prosacco LLC",
+              "fraud_Prosacco, Kreiger and Kovacek",
+              "fraud_Quitzon, Green and Bashirian",
+              "fraud_Quitzon-Goyette",
+              "fraud_Ratke and Sons",
+              "fraud_Rau and Sons",
+              "fraud_Rau-Grant",
+              "fraud_Raynor, Feest and Miller",
+              "fraud_Raynor, Reinger and Hagenes",
+              "fraud_Reichel Inc",
+              "fraud_Reichel LLC",
+              "fraud_Reichert, Huels and Hoppe",
+              "fraud_Reichert, Shanahan and Hayes",
+              "fraud_Reichert-Weissnat",
+              "fraud_Reilly, Heaney and Cole",
+              "fraud_Reinger, Weissnat and Strosin",
+              "fraud_Rempel Inc",
+              "fraud_Renner Ltd",
+              "fraud_Reynolds-Schinner",
+              "fraud_Rippin-VonRueden",
+              "fraud_Robel, Cummerata and Prosacco",
+              "fraud_Roberts, Daniel and Macejkovic",
+              "fraud_Roberts, Ryan and Smith",
+              "fraud_Rodriguez Group",
+              "fraud_Rodriguez, Yost and Jenkins",
+              "fraud_Rohan, White and Aufderhar",
+              "fraud_Rolfson-Kunde",
+              "fraud_Romaguera Ltd",
+              "fraud_Romaguera, Cruickshank and Greenholt",
+              "fraud_Roob LLC",
+              "fraud_Roob, Conn and Tremblay",
+              "fraud_Roob-Okuneva",
+              "fraud_Ruecker Group",
+              "fraud_Ruecker-Mayert",
+              "fraud_Runolfsdottir, Mueller and Hand",
+              "fraud_Runte-Mohr",
+              "fraud_Rutherford-Mertz",
+              "fraud_Sawayn PLC",
+              "fraud_Schaefer Ltd",
+              "fraud_Schaefer, Fay and Hilll",
+              "fraud_Schaefer, Maggio and Daugherty",
+              "fraud_Schaefer, McGlynn and Bosco",
+              "fraud_Schamberger-O'Keefe",
+              "fraud_Schiller, Blanda and Johnson",
+              "fraud_Schimmel-Olson",
+              "fraud_Schmeler Inc",
+              "fraud_Schmeler, Bashirian and Price",
+              "fraud_Schmeler-Howe",
+              "fraud_Schmidt and Sons",
+              "fraud_Schmidt-Larkin",
+              "fraud_Schoen, Kuphal and Nitzsche",
+              "fraud_Schoen, Nienow and Bauch",
+              "fraud_Schoen-Quigley",
+              "fraud_Schroeder Group",
+              "fraud_Schroeder, Wolff and Hermiston",
+              "fraud_Schulist Ltd",
+              "fraud_Schultz, Simonis and Little",
+              "fraud_Schumm PLC",
+              "fraud_Schumm, McLaughlin and Carter",
+              "fraud_Schuppe, Nolan and Hoeger",
+              "fraud_Schuppe-Schuppe",
+              "fraud_Shanahan-Lehner",
+              "fraud_Shields-Wunsch",
+              "fraud_Skiles LLC",
+              "fraud_Spencer PLC",
+              "fraud_Sporer Inc",
+              "fraud_Stamm-Rodriguez",
+              "fraud_Stamm-Witting",
+              "fraud_Stanton, Jakubowski and Baumbach",
+              "fraud_Stark-Batz",
+              "fraud_Stiedemann Ltd",
+              "fraud_Stoltenberg-Beatty",
+              "fraud_Stracke-Lemke",
+              "fraud_Streich Ltd",
+              "fraud_Streich, Dietrich and Barton",
+              "fraud_Streich, Hansen and Veum",
+              "fraud_Strosin-Cruickshank",
+              "fraud_Swaniawski, Bahringer and Ledner",
+              "fraud_Swaniawski, Nitzsche and Welch",
+              "fraud_Swift PLC",
+              "fraud_Terry-Huel",
+              "fraud_Thiel PLC",
+              "fraud_Thiel-Thiel",
+              "fraud_Thompson-Gleason",
+              "fraud_Tillman, Dickinson and Labadie",
+              "fraud_Tillman, Fritsch and Schmitt",
+              "fraud_Torp-Labadie",
+              "fraud_Torp-Lemke",
+              "fraud_Towne LLC",
+              "fraud_Towne, Greenholt and Koepp",
+              "fraud_Treutel-King",
+              "fraud_Turcotte, Batz and Buckridge",
+              "fraud_Turcotte-Halvorson",
+              "fraud_Turner LLC",
+              "fraud_Turner, Ruecker and Parisian",
+              "fraud_Turner, Ziemann and Lehner",
+              "fraud_Ullrich Ltd",
+              "fraud_Upton PLC",
+              "fraud_Vandervort-Funk",
+              "fraud_Veum-Koelpin",
+              "fraud_Volkman-Predovic",
+              "fraud_VonRueden Group",
+              "fraud_Waelchi Inc",
+              "fraud_Waelchi-Wolf",
+              "fraud_Watsica LLC",
+              "fraud_Watsica, Haag and Considine",
+              "fraud_Weimann, Kuhic and Beahan",
+              "fraud_Weimann-Lockman",
+              "fraud_Welch, Rath and Koepp",
+              "fraud_Wilkinson LLC",
+              "fraud_Wilkinson Ltd",
+              "fraud_Wilkinson PLC",
+              "fraud_Williamson LLC",
+              "fraud_Willms, Kris and Bergnaum",
+              "fraud_Windler, Goodwin and Kovacek",
+              "fraud_Wintheiser, Dietrich and Schimmel",
+              "fraud_Witting, Beer and Ernser",
+              "fraud_Wiza LLC",
+              "fraud_Wiza, Schaden and Stark",
+              "fraud_Wolf Inc",
+              "fraud_Wuckert, Wintheiser and Friesen",
+              "fraud_Yost-Rogahn",
+              "fraud_Zboncak, Rowe and Murazik",
+              "fraud_Zemlak, Tillman and Cremin",
+              "fraud_Ziemann-Waters",
+              "fraud_Zieme, Bode and Dooley"
+            ]
+          },
+          "hide": "dontHide",
+          "refresh": "onDashboardLoad",
+          "skipUrlSync": false,
+          "query": {
+            "kind": "DataQuery",
+            "group": "grafana-postgresql-datasource",
+            "version": "v0",
+            "datasource": {
+              "name": "PCC52D03280B7034C"
+            },
+            "spec": {
+              "dataset": "fraud_detections",
+              "editorMode": "code",
+              "format": "table",
+              "query": "SELECT DISTINCT merch FROM scores ORDER BY merch;\n",
+              "rawQuery": true,
+              "rawSql": "SELECT DISTINCT merch FROM scores ORDER BY merch;\n",
+              "refId": "SQLVariableQueryEditor-VariableQuery",
+              "sql": {
+                "columns": [
+                  {
+                    "parameters": [],
+                    "type": "function"
+                  }
+                ],
+                "groupBy": [
+                  {
+                    "property": {
+                      "type": "string"
+                    },
+                    "type": "groupBy"
+                  }
+                ],
+                "limit": 50
+              }
+            }
+          },
+          "regex": "",
+          "regexApplyTo": "value",
+          "sort": "disabled",
+          "definition": "SELECT DISTINCT merch FROM scores ORDER BY merch;\n",
+          "options": [],
+          "multi": true,
+          "includeAll": false,
+          "allowCustomValue": true
+        }
+      }
+    ],
+    "preferences": {
+      "layout": {
+        "kind": "AutoGridLayout",
+        "spec": {
+          "maxColumnCount": 3,
+          "columnWidthMode": "standard",
+          "rowHeightMode": "standard",
+          "items": []
+        }
+      }
+    }
+  }
+}

@@ -63,6 +63,8 @@
 - **PostgreSQL**: витрина размеченных данных и результаты скоринга
 - **Airflow 2.10**: поставка месячных батчей, переобучение модели и проверка качества данных
 - **Docker / Docker Compose**: оркестрация микросервисов
+- **Prometheus**: сбор метрик с сервисов
+- **Grafana**: визуализация метрик 
 
 ## 🚀 Быстрый старт
 
@@ -72,8 +74,8 @@
 
 ### Запуск
 ```bash
-git clone https://github.com/Timur-ingrzv/fraud-detector.git
-cd fraud-detector
+git clone https://github.com/Timur-ingrzv/mlops_hw5.git
+cd mlops_hw5
 
 # Сборка и запуск всех сервисов
 docker compose up -d --build
@@ -115,7 +117,7 @@ docker compose up -d --build
 | **Kafka UI** | http://localhost:8080 |
 | **Streamlit UI** | http://localhost:8501 |
 | **Airflow** | http://localhost:8081 (`admin` / `admin`) |
-| **PostgreSQL** | `localhost:5432`, база `fraud_db` |
+| **PostgreSQL** | `localhost:5433`, база `fraud_detections` |
 | **Prometheus** | http://localhost:9090 |
 | **Grafana** | http://localhost:3000 (`admin` / `pass`) |
 
@@ -127,7 +129,7 @@ Grafana визуализирует метрики с prometheus и node-exporter
 
 Дашборды содержат следующую информацию:
 
- - Scoring service: 
+ - `Scoring service`: 
 
    1. Распределение скоров (по бакетам и квартили)
 
@@ -137,13 +139,13 @@ Grafana визуализирует метрики с prometheus и node-exporter
 
    4. Размер очереди Kafka с необработанными сообщениями
 
- - Node exporter:
+ - `Node exporter`:
 
    1. Информация о: CPU, память, сеть, диск.
 
    2. Информация о Postgres: распределение транзакций по версиям модели
 
-- DB writer:
+- `DB writer`:
 
    1. Доля фрода и общее количество записей 
 
